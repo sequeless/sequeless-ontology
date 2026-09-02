@@ -16,16 +16,14 @@ import com.tngtech.archunit.lang.ArchRule;
         importOptions = {ImportOption.DoNotIncludeTests.class})
 class BoundaryRulesTest {
 
-    // TODO: drop allowEmptyShould once real types land in these packages — the scaffold has none yet.
     @ArchTest
     static final ArchRule ontology_is_free_of_spring = noClasses()
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage("org.springframework..")
-            .as("sequeless-ontology must stay transport-agnostic — no Spring dependency")
-            .allowEmptyShould(true);
+            .as("sequeless-ontology must stay transport-agnostic — no Spring dependency");
 
-    // TODO: drop allowEmptyShould once real types land in these packages — the scaffold has none yet.
+    // TODO: drop allowEmptyShould once real types land in api/spi — the scaffold has none yet.
     @ArchTest
     static final ArchRule api_and_spi_types_are_public = classes()
             .that()

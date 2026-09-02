@@ -56,9 +56,10 @@ depend on) — and enforce those boundaries mechanically with ArchUnit rather th
   `ontology-core`'s `internal`/`spi` packages, is a `BoundaryRulesTest` per module, run as
   part of `make verify`. This is weaker than JPMS at the classpath level but matches filter's
   convention and needs no module descriptors to maintain.
-- **The scaffold's ArchUnit rules currently carry `.allowEmptyShould(true)`.** With no
-  domain types yet, the only compiled classes are `package-info`, which the rules
-  deliberately exclude — so every rule would otherwise match zero classes and fail on an
-  empty build. Each such rule carries a `TODO` to drop the flag once real `api`/`spi`
-  types land in these packages; leaving it in place after that point would silently weaken
-  the guard it exists to provide.
+- **Two of the scaffold's ArchUnit rules carry `.allowEmptyShould(true)`.** With no domain
+  types yet, the only compiled classes are `package-info`, which the rules deliberately
+  exclude. The two `api_and_spi_types_are_public` rules therefore match zero classes and
+  would fail ArchUnit's default `failOnEmptyShould`; the `noClasses(...)` rules pass
+  vacuously and need no flag. Each flagged rule carries a `TODO` to drop it once real
+  `api`/`spi` types land in these packages; leaving it in place after that point would
+  silently weaken the guard it exists to provide.
