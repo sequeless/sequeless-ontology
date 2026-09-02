@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sequeless</groupId>
+    <artifactId>sequeless-ontology</artifactId>
+    <version>0.1.0</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>ontology-owl-adapter</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Sequeless Ontology OWL Adapter</name>
+  <description>Reference adapter translating the ontology domain model to and from OWL, via a
+    hexagonal port depending only on ontology-core's published api.</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.sequeless</groupId>
+      <artifactId>ontology-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
