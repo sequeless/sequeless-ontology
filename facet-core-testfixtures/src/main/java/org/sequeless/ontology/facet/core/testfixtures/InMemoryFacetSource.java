@@ -229,7 +229,16 @@ public final class InMemoryFacetSource implements FacetSource {
             throw new FacetResolutionException(FacetErrorCode.UNKNOWN_PATH, path);
         }
         List<Facet> merged = FacetMerger.merge(toFacets(matchingRows), request.versionPolicy(), fixture.versionOrder());
-        Facet facet = merged.get(0); // matchingRows share one property id, so exactly one group survives.
+        if (merged.isEmpty()) {
+            // Reachable under VersionPolicy.Pinned: matchingRows share one property id, but that
+            // id's sole row may belong to a version other than the pinned one, in which case
+            // FacetMerger legitimately selects nothing for this group. That is exactly the
+            // region-under-Pinned(v1) case design.md section 4.4's own worked example describes as
+            // "typing it raises UNKNOWN_PATH" -- the property genuinely does not exist under this
+            // pinned version, which is indistinguishable from it never having existed at all.
+            throw new FacetResolutionException(FacetErrorCode.UNKNOWN_PATH, path);
+        }
+        Facet facet = merged.get(0); // exactly one group, and it survived the isEmpty() check above.
         if (!facet.capabilities().filterable()) {
             throw new FacetResolutionException(FacetErrorCode.PATH_NOT_FILTERABLE, path);
         }
