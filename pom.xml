@@ -23,6 +23,7 @@
     <module>ontology-core</module>
     <module>ontology-owl-adapter</module>
     <module>facet-core</module>
+    <module>facet-core-testfixtures</module>
   </modules>
 
   <properties>

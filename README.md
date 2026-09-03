@@ -26,6 +26,7 @@ Requires JDK 21.
 | [`ontology-core`](ontology-core) | `org.sequeless:ontology-core` | The ontology domain core: published `api`/`spi` contracts and internal supporting types. Scaffolded; no domain types yet. |
 | [`ontology-owl-adapter`](ontology-owl-adapter) | `org.sequeless:ontology-owl-adapter` | Reference adapter translating the ontology domain model to and from OWL, depending only on `ontology-core`'s published `api`. Scaffolded; no adapter types yet. |
 | [`facet-core`](facet-core) | `org.sequeless:ontology-facet-core` | The facet contract shared with `sequeless-filter`: what can be filtered in a compiled ontology, its type, capabilities, and the versions defining it. Zero compile/runtime dependencies, enforced by the build. See [design.md](docs/specs/facet-contract/design.md) and [ADR 0002](docs/adr/0002-facet-core-is-a-zero-dependency-contract-module.md). |
+| [`facet-core-testfixtures`](facet-core-testfixtures) | `org.sequeless:ontology-facet-core-testfixtures` | Implementation-neutral fixtures, an in-memory reference `FacetSource`/`ConceptSource`, and the reusable `FacetSourceContractTest`/`ConceptSourceContractTest` kit any adapter — including the RDF-backed one that lands later — validates itself against. Published test-support artifact; carries JUnit/AssertJ at compile scope. |
 
 The repository root is a `pom`-packaged aggregator/parent (`org.sequeless:sequeless-ontology`)
 that ships no code — it holds the single shared version, dependency management, and build
