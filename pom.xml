@@ -22,6 +22,7 @@
   <modules>
     <module>ontology-core</module>
     <module>ontology-owl-adapter</module>
+    <module>facet-core</module>
   </modules>
 
   <properties>
@@ -58,6 +59,16 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>${jackson-databind.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>${junit-jupiter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj-core.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
