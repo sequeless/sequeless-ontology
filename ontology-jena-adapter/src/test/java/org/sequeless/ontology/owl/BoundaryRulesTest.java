@@ -9,7 +9,7 @@ import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
 /**
- * Mechanically enforced hexagonal boundaries for {@code ontology-owl-adapter}, including its
+ * Mechanically enforced hexagonal boundaries for {@code ontology-jena-adapter}, including its
  * cross-module relationship with {@code ontology-core}.
  */
 @AnalyzeClasses(
@@ -38,7 +38,7 @@ class BoundaryRulesTest {
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage("org.sequeless.ontology.internal..", "org.sequeless.ontology.spi..")
-            .as("ontology-owl-adapter's main scope may only depend on ontology-core's api package");
+            .as("ontology-jena-adapter's main scope may only depend on ontology-core's api package");
 
     @ArchTest
     static final ArchRule ontology_core_does_not_depend_on_owl_adapter = noClasses()
@@ -49,6 +49,6 @@ class BoundaryRulesTest {
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage("org.sequeless.ontology.owl..")
-            .as("ontology-core must not depend on ontology-owl-adapter (documents the intended "
+            .as("ontology-core must not depend on ontology-jena-adapter (documents the intended "
                     + "dependency direction; Maven's reactor build order already rejects this cycle)");
 }

@@ -9,10 +9,10 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>ontology-owl-adapter</artifactId>
+  <artifactId>ontology-jena-adapter</artifactId>
   <packaging>jar</packaging>
 
-  <name>Sequeless Ontology OWL Adapter</name>
+  <name>Sequeless Ontology Jena Adapter</name>
   <description>Reference adapter translating the ontology domain model to and from OWL, via a
     hexagonal port depending only on ontology-core's published api.</description>
 
