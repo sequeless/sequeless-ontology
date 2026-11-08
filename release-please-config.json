@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "maven",
+  "include-component-in-tag": true,
+  "tag-separator": "-",
+  "bootstrap-sha": "ace531320c135b40ece72336382078aacc882ba5",
+  "plugins": [
+    {
+      "type": "maven-workspace",
+      "considerAllArtifacts": false
+    }
+  ],
+  "packages": {
+    "ontology-core": {
+      "component": "ontology-core",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
+    },
+    "ontology-owl-adapter": {
+      "component": "ontology-owl-adapter",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
+    }
+  }
+}

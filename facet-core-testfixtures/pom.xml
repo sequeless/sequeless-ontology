@@ -17,6 +17,11 @@
     and the reusable contract test kit any facet-core implementation validates itself against. See
     docs/specs/facet-contract/design.md and ADR 0002.</description>
 
+  <properties>
+    <!-- Frozen and never published from this repo: excluded from release-please and deploy (spec 11). -->
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.sequeless</groupId>

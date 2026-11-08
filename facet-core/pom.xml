@@ -17,6 +17,11 @@
     sequeless-filter: model, ports, and pure merge/stamp/codec logic. See
     docs/specs/facet-contract/design.md.</description>
 
+  <properties>
+    <!-- Frozen and never published from this repo: excluded from release-please and deploy (spec 11). -->
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
