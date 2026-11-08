@@ -29,8 +29,9 @@ Requires JDK 21.
 | [`facet-core-testfixtures`](facet-core-testfixtures) | `org.sequeless:ontology-facet-core-testfixtures` | Implementation-neutral fixtures, an in-memory reference `FacetSource`/`ConceptSource`, and the reusable `FacetSourceContractTest`/`ConceptSourceContractTest` kit any adapter — including the RDF-backed one that lands later — validates itself against. Published test-support artifact; carries JUnit/AssertJ at compile scope. |
 
 The repository root is a `pom`-packaged aggregator/parent (`org.sequeless:sequeless-ontology`)
-that ships no code — it holds the single shared version, dependency management, and build
-plugins. All modules are released together from that one version.
+that ships no code — it holds dependency management, build plugins, and the version the modules
+currently inherit. Each released module is versioned and released on its own by release-please
+(see [`release-please-config.json`](release-please-config.json)).
 
 ## Build
 

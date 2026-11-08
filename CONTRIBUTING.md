@@ -9,7 +9,7 @@ needed. A devcontainer (`.devcontainer/`) provides a ready JDK 21 toolchain.
 make verify    # confirm a green baseline
 ```
 
-There are no local git hooks — Conventional Commits and semantic-release run in CI only,
+There are no local git hooks — Conventional Commits and release-please run in CI only,
 not via husky or any pre-commit/pre-push tooling.
 
 ## Workflow
@@ -24,8 +24,10 @@ not via husky or any pre-commit/pre-push tooling.
 ## Conventional Commits
 
 `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
-Use `feat!:` or a `BREAKING CHANGE:` footer for majors. The commit history drives SemVer and
-the generated `CHANGELOG.md` (via semantic-release) — **never hand-edit the changelog**.
+Use `feat!:` or a `BREAKING CHANGE:` footer for majors. release-please reads the commit history
+to propose each module's SemVer bump and generates that module's `CHANGELOG.md` — **never
+hand-edit a changelog**. The root `CHANGELOG.md` is the legacy semantic-release history and is no
+longer generated.
 
 ## Recording a decision (ADR)
 
