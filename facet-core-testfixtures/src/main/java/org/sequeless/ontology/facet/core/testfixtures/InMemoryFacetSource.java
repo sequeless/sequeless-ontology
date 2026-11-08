@@ -405,12 +405,10 @@ public final class InMemoryFacetSource implements FacetSource {
             RelationshipFixture relationshipFixture, VersionPolicy policy, Set<String> inScopeVersions) {
         return switch (policy) {
             case VersionPolicy.Union ignored -> true;
-            case VersionPolicy.Pinned pinned -> relationshipFixture
-                    .definedInVersions()
-                    .contains(pinned.versionIri());
-            case VersionPolicy.Intersection ignored -> relationshipFixture
-                    .definedInVersions()
-                    .equals(inScopeVersions);
+            case VersionPolicy.Pinned pinned ->
+                relationshipFixture.definedInVersions().contains(pinned.versionIri());
+            case VersionPolicy.Intersection ignored ->
+                relationshipFixture.definedInVersions().equals(inScopeVersions);
         };
     }
 
