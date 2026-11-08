@@ -13,5 +13,5 @@ jobs:
   release:
     uses: sequeless/sequeless-build/.github/workflows/maven-release.yml@workflows-v0.1.2
     with:
-      java-version: "21"
+      java-version: "25"
     secrets: inherit
