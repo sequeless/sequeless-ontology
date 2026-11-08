@@ -9,7 +9,9 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
+  <groupId>org.sequeless</groupId>
   <artifactId>ontology-core</artifactId>
+  <version>0.1.0</version>
   <packaging>jar</packaging>
 
   <name>Sequeless Ontology Core</name>
