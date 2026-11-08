@@ -16,8 +16,8 @@
       "initial-version": "0.1.0",
       "skip-snapshot": true
     },
-    "ontology-owl-adapter": {
-      "component": "ontology-owl-adapter",
+    "ontology-jena-adapter": {
+      "component": "ontology-jena-adapter",
       "initial-version": "0.1.0",
       "skip-snapshot": true
     }
