@@ -50,8 +50,8 @@
     <assertj-core.version>3.26.3</assertj-core.version>
     <mockito-core.version>5.14.2</mockito-core.version>
 
-    <spotless.version>2.44.0</spotless.version>
-    <palantir-java-format.version>2.50.0</palantir-java-format.version>
+    <spotless.version>2.46.1</spotless.version>
+    <palantir-java-format.version>2.102.0</palantir-java-format.version>
     <jacoco.version>0.8.12</jacoco.version>
     <enforcer.version>3.5.0</enforcer.version>
     <surefire.version>3.5.2</surefire.version>

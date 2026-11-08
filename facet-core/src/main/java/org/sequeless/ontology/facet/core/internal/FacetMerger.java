@@ -97,13 +97,11 @@ public final class FacetMerger {
 
         Map<List<UUID>, List<Facet>> groups = groupByIdPath(perVersionDefinitions, versionOrder);
 
-        List<Facet> merged =
-                switch (policy) {
-                    case VersionPolicy.Union ignored -> mergeUnion(groups, versionOrder);
-                    case VersionPolicy.Pinned pinned -> mergePinned(groups, pinned, versionOrder);
-                    case VersionPolicy.Intersection ignored -> mergeIntersection(
-                            groups, perVersionDefinitions, versionOrder);
-                };
+        List<Facet> merged = switch (policy) {
+            case VersionPolicy.Union ignored -> mergeUnion(groups, versionOrder);
+            case VersionPolicy.Pinned pinned -> mergePinned(groups, pinned, versionOrder);
+            case VersionPolicy.Intersection ignored -> mergeIntersection(groups, perVersionDefinitions, versionOrder);
+        };
 
         // A FacetSource can return this list as-is and get a stable, human-readable order for
         // free, which is the point of putting this logic in the contract rather than duplicating
