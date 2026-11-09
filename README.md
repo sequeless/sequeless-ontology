@@ -29,8 +29,10 @@ Requires JDK 25.
 | [`facet-core`](facet-core) | `org.sequeless:ontology-facet-core` | The facet contract shared with `sequeless-filter`: what can be filtered in a compiled ontology, its type, capabilities, and the versions defining it. Zero compile/runtime dependencies, enforced by the build. See [design.md](docs/specs/facet-contract/design.md) and [ADR 0002](docs/adr/0002-facet-core-is-a-zero-dependency-contract-module.md). |
 | [`facet-core-testfixtures`](facet-core-testfixtures) | `org.sequeless:ontology-facet-core-testfixtures` | Implementation-neutral fixtures, an in-memory reference `FacetSource`/`ConceptSource`, and the reusable `FacetSourceContractTest`/`ConceptSourceContractTest` kit any adapter — including the RDF-backed one that lands later — validates itself against. Frozen and not published from this repository; carries JUnit/AssertJ at compile scope. |
 
-The repository root is a `pom`-packaged aggregator and parent (`org.sequeless:sequeless-ontology`)
-that ships no code. It holds dependency management and build plugins. Each released module
+The repository root is a `pom`-packaged, parent-less aggregator (`org.sequeless:sequeless-ontology`)
+that ships no code. It holds no dependency management, and its only build plugin sorts the root
+`pom.xml`. Each module takes `org.sequeless:sequeless-build-parent:0.1.3` as its parent, which
+supplies the shared build plugins and enforcer settings. Each released module
 declares its own `groupId` and `version` in its POM and is released on its own by release-please
 (see [`release-please-config.json`](release-please-config.json)).
 

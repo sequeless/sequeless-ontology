@@ -45,9 +45,10 @@ run in CI.
 ## Coverage (JaCoCo) convention
 
 JaCoCo instrumentation runs on `verify`, but the line-coverage `check` (`jacoco-check`
-execution) is **off by default** (`jacoco.check.skip=true` in `pom.xml`) — this repo has
+execution) is **off by default** (`jacoco.check.skip=true` in the module's `pom.xml`, for example
+`ontology-core/pom.xml`; the root `pom.xml` no longer carries it) — this repo has
 **not yet opted in**. A project opts in once it carries settled production logic by flipping
-the properties in `pom.xml`:
+the properties in the module's `pom.xml`:
 
 ```xml
 <properties>
