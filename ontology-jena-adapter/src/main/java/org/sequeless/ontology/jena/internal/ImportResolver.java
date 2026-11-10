@@ -19,10 +19,8 @@ import org.apache.jena.riot.RDFDataMgr;
  * escape the adapter.
  *
  * <p>The vocabulary is bundled as two files, {@code sq-schema.ttl} and {@code sq-behaviour.ttl},
- * which are merged into one graph under {@link #SQ_META_IRI}. They are a deliberate second copy of
- * the ones in {@code sequeless-spi-testkit}'s main resources: this adapter cannot depend on the
- * testkit outside test scope, so it ships its own. Both must stay byte-identical to the testkit
- * copies, which {@code OntologyFixtureDriftTest} guards.
+ * which are merged into one graph under {@link #SQ_META_IRI}. The adapter ships its own copy,
+ * because it cannot depend on a testkit outside test scope.
  */
 public final class ImportResolver {
 
