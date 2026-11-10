@@ -1,8 +1,10 @@
 /**
- * Shell package for the default {@code OntologyAdministration} and {@code ValidationPort} adapter, backed by
- * Apache Jena (ontapi, the built-in OWL reasoner, and jena-shacl for SHACL validation). Turtle
- * import/export lands here too.
+ * The Apache Jena reference adapter of the ontology, backed by Jena ontapi.
  *
- * <p>No implementation yet — this module lands in Phase 1.
+ * <p>The public types are {@code JenaOntologyPort}, which implements the schema, behaviour,
+ * automation and administration ports, {@code ReasonerSetting}, and {@code JenaOntologySettings}.
+ *
+ * <p>The compiler and the Jena internals are in {@code org.sequeless.ontology.jena.internal}. That
+ * package is not part of the public API (ADR 0001).
  */
 package org.sequeless.ontology.jena;

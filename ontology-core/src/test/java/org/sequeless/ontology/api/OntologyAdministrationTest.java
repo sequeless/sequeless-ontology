@@ -14,7 +14,7 @@ import org.sequeless.kernel.identity.TenantId;
  * Unit-level tests for the {@link OntologyAdministration} interface shape itself. The full
  * behavioural contract every implementation must satisfy (null handling, reload semantics,
  * export/import round-tripping, versions, failure behaviour, throw-on-inconsistency) is asserted
- * mechanically against arbitrary implementations by {@code sequeless-spi-testkit}'s {@code
+ * mechanically against arbitrary implementations by {@code ontology-testfixtures}'s {@code
  * OntologyContract}, not repeated here.
  */
 class OntologyAdministrationTest {

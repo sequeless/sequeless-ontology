@@ -15,9 +15,8 @@ import org.sequeless.ontology.jena.ReasonerSetting;
  * source of truth; this class must not drift from it, in particular the constant used for each
  * term's local name and the exact wording of {@link #rejectionMessageIfReserved}'s message.
  *
- * <p>Package-private: only {@link SnapshotMapper} (annotation lookups) and {@link
- * OntModelBuilder}-adjacent validation need these terms; nothing outside this adapter should ever
- * construct a {@code sq:} IRI by hand.
+ * <p>Public, used by {@code JenaOntologyPort} and its helpers, and not part of the public API (ADR
+ * 0001). Nothing outside this adapter should ever construct a {@code sq:} IRI by hand.
  */
 public final class SqVocabulary {
 
