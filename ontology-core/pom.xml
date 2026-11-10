@@ -22,7 +22,6 @@
     <maven.compiler.release>25</maven.compiler.release>
     <sequeless.github.repository>sequeless-ontology</sequeless.github.repository>
     <flatten.version>1.6.0</flatten.version>
-    <jackson-databind.version>2.18.3</jackson-databind.version>
     <junit-jupiter.version>5.11.4</junit-jupiter.version>
     <assertj-core.version>3.26.3</assertj-core.version>
     <mockito-core.version>5.14.2</mockito-core.version>
@@ -35,14 +34,20 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson-databind.version}</version>
+      <groupId>org.sequeless</groupId>
+      <artifactId>kernel-identity</artifactId>
+      <version>0.1.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
       <version>${junit-jupiter.version}</version>
       <scope>test</scope>
     </dependency>
@@ -89,16 +94,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <!-- No main source imports jackson-databind yet, so dependency:analyze-only would fail on it. Keep the dependency; drop this exemption once a source uses it or the dependency goes. -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <configuration>
-          <ignoredUnusedDeclaredDependencies>
-            <ignoredUnusedDeclaredDependency>com.fasterxml.jackson.core:jackson-databind</ignoredUnusedDeclaredDependency>
-          </ignoredUnusedDeclaredDependencies>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>

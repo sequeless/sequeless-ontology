@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sequeless</groupId>
+    <artifactId>sequeless-build-parent</artifactId>
+    <version>0.1.3</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>org.sequeless</groupId>
+  <artifactId>automation-contract</artifactId>
+  <version>0.1.0</version>
+  <packaging>jar</packaging>
+
+  <name>Sequeless Automation Contract</name>
+  <description>The Automation half of the ontology meta-model: transition actions and the
+    AutomationSource spi, built on the Behaviour and Schema halves and the kernel.</description>
+
+  <properties>
+    <maven.compiler.release>25</maven.compiler.release>
+    <sequeless.github.repository>sequeless-ontology</sequeless.github.repository>
+    <flatten.version>1.6.0</flatten.version>
+    <junit-jupiter.version>5.11.4</junit-jupiter.version>
+    <assertj-core.version>3.26.3</assertj-core.version>
+
+    <!-- JaCoCo line-coverage check: off until the module opts in (CONTRIBUTING.md, Coverage). -->
+    <jacoco.check.skip>true</jacoco.check.skip>
+    <jacoco.line.min>0.10</jacoco.line.min>
+    <jacoco.check.dataFile>${project.build.directory}/jacoco.exec</jacoco.check.dataFile>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.sequeless</groupId>
+      <artifactId>behaviour-contract</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sequeless</groupId>
+      <artifactId>schema-contract</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sequeless</groupId>
+      <artifactId>kernel-identity</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sequeless</groupId>
+      <artifactId>kernel-values</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- The tests import archunit and archunit-junit5-api directly, so they stay declared, or dependency:analyze reports them as used undeclared. -->
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- Declared here, as sequeless-filter does, so Maven can fetch the sequeless-build-parent POM itself. -->
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/sequeless/*</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- No copied source imports behaviour-contract yet: the module depends on it as #20 decision 2 and spec 11, Q10 say. Keep the dependency; drop this exemption once a source uses it or the dependency goes. -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <configuration>
+          <ignoredUnusedDeclaredDependencies>
+            <ignoredUnusedDeclaredDependency>org.sequeless:behaviour-contract</ignoredUnusedDeclaredDependency>
+          </ignoredUnusedDeclaredDependencies>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>${flatten.version}</version>
+        <configuration>
+          <updatePomFile>true</updatePomFile>
+          <flattenMode>ossrh</flattenMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+            <phase>process-resources</phase>
+          </execution>
+          <execution>
+            <id>flatten-clean</id>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <phase>clean</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>ban-spring</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <bannedDependencies>
+                  <excludes>
+                    <exclude>org.springframework*</exclude>
+                  </excludes>
+                  <message>sequeless-ontology must stay transport-agnostic — no Spring dependency.</message>
+                </bannedDependencies>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>jacoco-check</id>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <skip>${jacoco.check.skip}</skip>
+              <dataFile>${jacoco.check.dataFile}</dataFile>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>${jacoco.line.min}</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -22,7 +22,11 @@
 
   <modules>
     <module>ontology-core</module>
+    <module>schema-contract</module>
+    <module>behaviour-contract</module>
+    <module>automation-contract</module>
     <module>ontology-jena-adapter</module>
+    <module>ontology-testfixtures</module>
     <module>facet-core</module>
     <module>facet-core-testfixtures</module>
   </modules>

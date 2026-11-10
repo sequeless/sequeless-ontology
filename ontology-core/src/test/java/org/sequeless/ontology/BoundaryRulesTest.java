@@ -23,7 +23,6 @@ class BoundaryRulesTest {
             .resideInAnyPackage("org.springframework..")
             .as("sequeless-ontology must stay transport-agnostic — no Spring dependency");
 
-    // TODO: drop allowEmptyShould once real types land in api/spi — the scaffold has none yet.
     @ArchTest
     static final ArchRule api_and_spi_types_are_public = classes()
             .that()
@@ -34,6 +33,5 @@ class BoundaryRulesTest {
             .haveSimpleNameNotEndingWith("package-info")
             .should()
             .bePublic()
-            .as("the published contract (api + spi) must be exported as public types")
-            .allowEmptyShould(true);
+            .as("the published contract (api + spi) must be exported as public types");
 }
