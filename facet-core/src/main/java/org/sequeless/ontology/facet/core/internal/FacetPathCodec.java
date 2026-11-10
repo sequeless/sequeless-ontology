@@ -19,7 +19,7 @@ import org.sequeless.ontology.facet.core.api.FacetPath;
  * only the list of segment slugs as they read <em>right now</em> — not a {@link FacetPath}, because
  * a bare slug string cannot name a property's UUID, only whatever currently carries that slug. And
  * even that partial recovery is only meaningful at the instant it is read: a later rename changes
- * what the same slug string means, which is exactly why {@link #asIdPath()} rather than {@link
+ * what the same slug string means, which is exactly why {@link FacetPath#asIdPath()} rather than {@link
  * FacetPath#asSlugPath()} is what gets persisted. That is why this method is named {@code
  * splitSlug} rather than {@code parseSlug} — it performs a lexical split, not a parse that
  * recovers identity.

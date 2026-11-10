@@ -50,7 +50,7 @@ public interface FacetSource {
      * ontology graph contains a cycle, and even acyclic it is exponential in fan-out — 30
      * properties &times; 5 relationships &times; 30 properties is 4 500 entries at depth 2 alone.
      *
-     * <h2>Guarantees</h2>
+     * <h4>Guarantees</h4>
      *
      * <ul>
      *   <li>Every facet defined directly on {@code request.root()} is present in {@link
@@ -124,7 +124,7 @@ public interface FacetSource {
      * PathSegment#targetClass()} on the last segment must be non-{@code null}, because {@code
      * relationship} names a relationship to traverse into, not a terminal scalar facet.
      *
-     * <h2>Guarantees</h2>
+     * <h4>Guarantees</h4>
      *
      * <ul>
      *   <li>The result contains the facets and walkable relationships of the class {@code
