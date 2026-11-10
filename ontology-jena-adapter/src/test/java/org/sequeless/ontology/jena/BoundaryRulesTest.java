@@ -33,10 +33,7 @@ class BoundaryRulesTest {
                     "org.apache.jena..",
                     "com.fasterxml.jackson..",
                     "org.sequeless.kernel..",
-                    "org.sequeless.filter..",
-                    "org.junit..",
-                    "org.assertj..",
-                    "com.tngtech.archunit..")
+                    "org.sequeless.filter..")
             .as("ontology-jena-adapter may depend only on the ontology api, spi, schema, behaviour, automation "
                     + "and jena packages, the JDK and its third-party libraries (spec 11, section 5.4)");
 
