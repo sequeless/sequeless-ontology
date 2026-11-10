@@ -36,7 +36,7 @@ import org.sequeless.ontology.jena.ReasonerSetting;
  * model.getID().imports()} against the one IRI {@link ImportResolver} actually registers ({@link
  * ImportResolver#SQ_META_IRI}) after the fact. See {@code JenaOntologyPort}'s javadoc.
  *
- * <p>Package-private: only {@link JenaOntologyPort} calls this.
+ * <p>Public, used by {@link JenaOntologyPort}, and not part of the public API (ADR 0001).
  */
 public final class OntModelBuilder {
 

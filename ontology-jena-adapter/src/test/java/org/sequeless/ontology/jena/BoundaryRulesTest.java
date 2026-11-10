@@ -17,13 +17,28 @@ import com.tngtech.archunit.lang.ArchRule;
 class BoundaryRulesTest {
 
     @ArchTest
-    static final ArchRule ontology_jena_adapter_does_not_reach_ontology_core_internals = noClasses()
+    static final ArchRule ontology_jena_adapter_depends_only_on_allowed_packages = noClasses()
             .that()
             .resideInAPackage("org.sequeless.ontology.jena..")
             .should()
             .dependOnClassesThat()
-            .resideInAPackage("org.sequeless.ontology.internal..")
-            .as("ontology-jena-adapter may use ontology-core's api and spi, but not its internal package");
+            .resideOutsideOfPackages(
+                    "java..",
+                    "org.sequeless.ontology.api..",
+                    "org.sequeless.ontology.spi..",
+                    "org.sequeless.ontology.schema..",
+                    "org.sequeless.ontology.behaviour..",
+                    "org.sequeless.ontology.automation..",
+                    "org.sequeless.ontology.jena..",
+                    "org.apache.jena..",
+                    "com.fasterxml.jackson..",
+                    "org.sequeless.kernel..",
+                    "org.sequeless.filter..",
+                    "org.junit..",
+                    "org.assertj..",
+                    "com.tngtech.archunit..")
+            .as("ontology-jena-adapter may depend only on the ontology api, spi, schema, behaviour, automation "
+                    + "and jena packages, the JDK and its third-party libraries (spec 11, section 5.4)");
 
     @ArchTest
     static final ArchRule ontology_core_does_not_depend_on_jena_adapter = noClasses()

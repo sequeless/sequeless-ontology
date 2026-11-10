@@ -20,6 +20,26 @@
       "component": "ontology-jena-adapter",
       "initial-version": "0.1.0",
       "skip-snapshot": true
+    },
+    "schema-contract": {
+      "component": "schema-contract",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
+    },
+    "behaviour-contract": {
+      "component": "behaviour-contract",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
+    },
+    "automation-contract": {
+      "component": "automation-contract",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
+    },
+    "ontology-testfixtures": {
+      "component": "ontology-testfixtures",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
     }
   }
 }

@@ -3,11 +3,14 @@ package org.sequeless.ontology.jena.internal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.BooleanNode;
+import com.fasterxml.jackson.databind.node.DecimalNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.apache.jena.ontapi.OntModelFactory;
@@ -42,6 +45,9 @@ class RollupRuleMappingTest {
     private static final String STATUS_IRI = NS + "status";
     private static final String PRIORITY_IRI = NS + "priority";
     private static final String BELONGS_TO_PROJECT_IRI = NS + "belongsToProject";
+    private static final String AMOUNT_IRI = NS + "amount";
+    private static final String IS_BLOCKED_IRI = NS + "isBlocked";
+    private static final String DUE_AT_IRI = NS + "dueAt";
     private static final String PROJECT_UUID = "7d1e2f3a-4b5c-4d6e-8f70-123456789abc";
 
     private static final String HEADER = """
@@ -59,6 +65,9 @@ class RollupRuleMappingTest {
         ex:status a owl:DatatypeProperty ; rdfs:domain ex:Task ; rdfs:range xsd:string .
         ex:priority a owl:DatatypeProperty ; rdfs:domain ex:Task ; rdfs:range xsd:integer .
         ex:belongsToProject a owl:ObjectProperty ; rdfs:domain ex:Task ; rdfs:range ex:Project .
+        ex:amount a owl:DatatypeProperty ; rdfs:domain ex:Task ; rdfs:range xsd:decimal .
+        ex:isBlocked a owl:DatatypeProperty ; rdfs:domain ex:Task ; rdfs:range xsd:boolean .
+        ex:dueAt a owl:DatatypeProperty ; rdfs:domain ex:Task ; rdfs:range xsd:dateTime .
 
         """;
 
@@ -76,6 +85,19 @@ class RollupRuleMappingTest {
                     FieldDefinition.builder()
                             .path(BELONGS_TO_PROJECT_IRI)
                             .jsonSchemaType("string")
+                            .build(),
+                    FieldDefinition.builder()
+                            .path(AMOUNT_IRI)
+                            .jsonSchemaType("number")
+                            .build(),
+                    FieldDefinition.builder()
+                            .path(IS_BLOCKED_IRI)
+                            .jsonSchemaType("boolean")
+                            .build(),
+                    FieldDefinition.builder()
+                            .path(DUE_AT_IRI)
+                            .jsonSchemaType("string")
+                            .jsonSchemaFormat("date-time")
                             .build()))
             .build());
 
@@ -161,6 +183,36 @@ class RollupRuleMappingTest {
 
         assertThat(criteria).isEqualTo(new FieldFilter(BELONGS_TO_PROJECT_IRI, "is", TextNode.valueOf(PROJECT_UUID)));
         assertValid(criteria, "reference");
+    }
+
+    @Test
+    void decimalEqualityValueIsADecimalNode() {
+        FilterNode criteria = openTaskCountRule(filter(clause("ex:amount", "eq", "\"2.50\"")))
+                .criteria()
+                .orElseThrow();
+
+        assertThat(criteria).isEqualTo(new FieldFilter(AMOUNT_IRI, "is", DecimalNode.valueOf(new BigDecimal("2.50"))));
+        assertValid(criteria, "decimal");
+    }
+
+    @Test
+    void booleanEqualityValueIsABooleanNode() {
+        FilterNode criteria = openTaskCountRule(filter(clause("ex:isBlocked", "eq", "\"true\"")))
+                .criteria()
+                .orElseThrow();
+
+        assertThat(criteria).isEqualTo(new FieldFilter(IS_BLOCKED_IRI, "is", BooleanNode.TRUE));
+        assertValid(criteria, "boolean");
+    }
+
+    @Test
+    void dateTimeEqualityValueIsItsIso8601InstantString() {
+        FilterNode criteria = openTaskCountRule(filter(clause("ex:dueAt", "eq", "\"2026-03-01T12:00:00Z\"")))
+                .criteria()
+                .orElseThrow();
+
+        assertThat(criteria).isEqualTo(new FieldFilter(DUE_AT_IRI, "is", TextNode.valueOf("2026-03-01T12:00:00Z")));
+        assertValid(criteria, "date-time");
     }
 
     private static void assertValid(FilterNode node, String label) {

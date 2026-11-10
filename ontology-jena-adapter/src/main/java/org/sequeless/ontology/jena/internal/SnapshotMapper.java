@@ -1033,9 +1033,9 @@ public final class SnapshotMapper {
     }
 
     /**
-     * Parses {@code lexical} per {@code datatype}, mirroring {@code
-     * org.sequeless.core.validation.ValueCoercer}'s per-datatype coercion but starting from a
-     * lexical string rather than an already-typed JSON value, since a Turtle {@code sq:value} is
+     * Parses {@code lexical} per {@code datatype}, mirroring the per-datatype coercion of the
+     * prototype's ValueCoercer but starting from a lexical string rather than an already-typed
+     * JSON value, since a Turtle {@code sq:value} is
      * always a literal's lexical form. Returns {@link Optional#empty()} — never throws — when
      * {@code lexical} does not parse, so the caller can report a clean, named {@code ERROR} instead
      * of an uncaught parse exception.

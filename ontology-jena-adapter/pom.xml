@@ -39,7 +39,9 @@
     Convergence pins for Jena 6's transitive commons artifacts. The prototype gets these from its
     root dependencyManagement and the Spring Boot BOM; this module has neither, so the highest
     version any path asks for is pinned here (commons-io 2.22.0 over 2.20.0, commons-codec 1.22.0
-    over 1.19.0, commons-lang3 3.20.0 over 3.18.0). Same versions the prototype resolves.
+    over 1.19.0, commons-lang3 3.20.0 over 3.18.0). commons-io 2.22.0 and commons-lang3 3.20.0 are
+    the versions the prototype resolves. commons-codec 1.22.0 is the highest version a Jena path
+    asks for; the prototype resolves 1.21.0 through the Spring Boot BOM, so this module pins higher.
   -->
   <dependencyManagement>
     <dependencies>
@@ -190,16 +192,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <!-- No copied source imports jackson-databind yet, so dependency:analyze-only would fail on it. Keep the dependency (spec 5.3, D28); drop this exemption once a source uses it or the dependency goes. -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <configuration>
-          <ignoredUnusedDeclaredDependencies>
-            <ignoredUnusedDeclaredDependency>com.fasterxml.jackson.core:jackson-databind</ignoredUnusedDeclaredDependency>
-          </ignoredUnusedDeclaredDependencies>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>

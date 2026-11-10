@@ -31,10 +31,8 @@ import org.sequeless.ontology.testfixtures.Fixtures;
  * every adopted activation takes the version the store gives it, not the in-memory counter's.
  *
  * <p>Uses a small local fake of {@link OntologyDocumentStore} rather than {@code
- * sequeless-spi-testkit}'s own in-memory implementation: that one is nested inside a test-scoped
- * class in {@code sequeless-spi-testkit}'s own test sources, which this module cannot depend on
- * (only its main sources are a test dependency here). Duplicating the ~15 lines locally is
- * cheaper and clearer than restructuring that module just to share it.
+ * ontology-testfixtures}'s {@code InMemoryOntologyDocumentStore}. Duplicating the ~15 lines locally
+ * is cheaper and clearer than coupling this test to that class.
  */
 class JenaOntologyPortStorePersistenceTest {
 
@@ -210,8 +208,8 @@ class JenaOntologyPortStorePersistenceTest {
 
     /**
      * A per-tenant version counter with no persistence at all, duplicated from {@code
-     * sequeless-spi-testkit}'s own {@code InMemoryObjectStorePort.InMemoryOntologyDocumentStore} —
-     * see this class's javadoc for why it cannot simply be reused.
+     * ontology-testfixtures}'s {@code InMemoryOntologyDocumentStore} — see this class's javadoc for
+     * why it is not reused.
      */
     private static final class InMemoryOntologyDocumentStore implements OntologyDocumentStore {
 
