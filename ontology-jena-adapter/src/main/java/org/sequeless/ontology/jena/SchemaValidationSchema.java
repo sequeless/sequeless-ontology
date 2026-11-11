@@ -41,10 +41,10 @@ final class SchemaValidationSchema implements ValidationSchema {
      * Walks {@link TypeDefinition#superTypes()} transitively, starting from {@code typeIri}. The walk
      * is needed because plain {@code ShaclValidator.validate(Shapes, Graph)} runs no reasoner over the
      * data graph: a {@code sh:targetClass} shape only fires against an {@code rdf:type} triple present
-     * in the graph. A supertype that the schema cannot resolve is skipped rather than included.
+     * in the graph. A supertype that the schema cannot resolve stays in the closure but is not expanded, as in the prototype.
      *
      * @param typeIri a declared type IRI
-     * @return {@code typeIri} and every transitive supertype the schema declares, as an unmodifiable set
+     * @return {@code typeIri} and every supertype IRI reachable through {@code superTypes()} edges, as an unmodifiable set
      *     that starts with {@code typeIri}
      */
     @Override
@@ -78,7 +78,7 @@ final class SchemaValidationSchema implements ValidationSchema {
         return schema.type(typeIri)
                 .flatMap(type -> type.properties().stream()
                         .filter(property -> property.iri().equals(propertyIri))
-                        .findFirst())
+                        .reduce((first, second) -> second))
                 .filter(AttributeDefinition.class::isInstance)
                 .map(AttributeDefinition.class::cast)
                 .map(attribute -> attribute.datatype().xsdIri())

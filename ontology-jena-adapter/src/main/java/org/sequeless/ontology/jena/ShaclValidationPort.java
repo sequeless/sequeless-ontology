@@ -45,7 +45,7 @@ public final class ShaclValidationPort implements ShapeValidationPort {
     /**
      * Validates {@code object} against the shapes of the live ontology. The shapes are read for {@code
      * scope} at call time, and the object's data graph is built from {@code schema} and {@code object}
-     * alone, so the same arguments always produce the same violations.
+     * alone. For an unchanged ontology, the same arguments produce the same violations.
      *
      * @param scope the tenant and principal the validation runs for; must not be {@code null}
      * @param schema the type information the data graph is built against; must not be {@code null}

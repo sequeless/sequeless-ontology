@@ -4,7 +4,7 @@ import java.util.List;
 import org.sequeless.kernel.identity.Scope;
 
 /**
- * The inbound port that validates one {@link ValidatableObject} against the shapes of a
+ * The outbound port that validates one {@link ValidatableObject} against the shapes of a
  * {@link ValidationSchema}. It is schema-free: the schema is passed in on each call, so the port
  * never holds a type system of its own, and the implementation is free to evaluate the shapes in
  * whatever way its ontology library provides.
@@ -13,7 +13,10 @@ import org.sequeless.kernel.identity.Scope;
  * non-{@code null}. A conforming implementation throws {@link NullPointerException} when any
  * argument is {@code null}.
  *
- * <p>The result is a non-{@code null}, unmodifiable list. An empty list means the object is valid. An implementation throws {@link IllegalArgumentException} when the type of {@code object} is not declared by {@code schema}.
+ * <p>The result is a non-{@code null}, unmodifiable list. An empty list means the object is valid.
+ *
+ * <p>An implementation throws {@link IllegalArgumentException} when the type of {@code object} is not
+ * declared by {@code schema}.
  * Each {@link ShapeViolation} names the property IRI it concerns, or {@code ""} for a node-level
  * violation.
  */
