@@ -11,7 +11,7 @@
  * with {@link org.sequeless.ontology.api.ValidatableObject}, {@link
  * org.sequeless.ontology.api.ShapeViolation} and {@link org.sequeless.ontology.api.ValidationSchema})
  * is also in this package. Its implementation lives in ontology-jena-adapter.
- * It does not depend on any half of the ontology in the schema, behaviour or automation contract. {@link
+ * The package does not depend on any half of the ontology in the schema, behaviour or automation contract. {@link
  * org.sequeless.ontology.api.OntologyAdministration} is the port interface; {@link
  * org.sequeless.ontology.api.OntologyDocument}, {@link org.sequeless.ontology.api.OntologyFormat},
  * {@link org.sequeless.ontology.api.ImportMode}, and {@link org.sequeless.ontology.api.ImportReport}

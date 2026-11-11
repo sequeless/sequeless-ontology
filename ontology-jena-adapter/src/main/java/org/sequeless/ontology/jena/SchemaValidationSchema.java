@@ -58,7 +58,7 @@ final class SchemaValidationSchema implements ValidationSchema {
                 continue;
             }
             for (String superType : current.get().superTypes()) {
-                if (hasType(superType) && closure.add(superType)) {
+                if (closure.add(superType)) {
                     pending.add(superType);
                 }
             }

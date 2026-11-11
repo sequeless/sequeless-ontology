@@ -13,7 +13,7 @@ import org.sequeless.kernel.identity.Scope;
  * non-{@code null}. A conforming implementation throws {@link NullPointerException} when any
  * argument is {@code null}.
  *
- * <p>The result is a non-{@code null}, unmodifiable list. An empty list means the object is valid.
+ * <p>The result is a non-{@code null}, unmodifiable list. An empty list means the object is valid. An implementation throws {@link IllegalArgumentException} when the type of {@code object} is not declared by {@code schema}.
  * Each {@link ShapeViolation} names the property IRI it concerns, or {@code ""} for a node-level
  * violation.
  */
