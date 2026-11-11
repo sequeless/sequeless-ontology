@@ -47,7 +47,7 @@ class ShaclDataGraphBuilderTest {
                 .mapWith(triple -> triple.getObject())
                 .toList();
         assertThat(objects).containsExactly(expectedObject);
-        assertThat(expectedObject.isURI()).isTrue();
+        assertThat(objects.get(0).isURI()).isTrue();
     }
 
     @Test

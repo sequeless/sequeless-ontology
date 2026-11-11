@@ -22,9 +22,10 @@ import org.sequeless.ontology.testfixtures.Fixtures;
  * Checks the {@link ShaclValidationPort} clauses of {@link org.sequeless.ontology.api.ShapeValidationPort}
  * that can be asserted directly: null handling, an unmodifiable result, and determinism for equal
  * arguments. The port runs against the reference ontology, whose {@code ex:TaskShape} bounds {@code
- * estimatedHours} to 0 through 1000. The invalid object below therefore produces a real violation,
- * so the result is non-empty and the unmodifiable check and the determinism check have something to
- * compare.
+ * estimatedHours} to 0 through 1000 and whose {@code ex:PersonShape} pattern-checks {@code email}. The
+ * invalid object below therefore produces a real violation, so the result is non-empty and the
+ * unmodifiable check and the determinism check have something to compare. The valid-task and
+ * violation-path cases check that each violation names the property IRI it concerns.
  */
 class ShaclValidationPortContractTest {
 
@@ -37,6 +38,10 @@ class ShaclValidationPortContractTest {
 
     private static final ValidatableObject INVALID_TASK =
             task(Map.of(Fixtures.ESTIMATED_HOURS_IRI, Value.decimal(new BigDecimal("-1"))));
+
+    /** {@code ex:name} and {@code ex:email} on {@code ex:Person}; the testkit fixtures carry no constants for them. */
+    private static final String NAME_IRI = "https://sequeless.dev/ns/ref#name";
+    private static final String EMAIL_IRI = "https://sequeless.dev/ns/ref#email";
 
     @Test
     void rejectsNullScope() {
@@ -67,6 +72,48 @@ class ShaclValidationPortContractTest {
     }
 
     @Test
+    void validReferenceTaskProducesNoViolations() {
+        ValidatableObject person = person(Map.of(
+                NAME_IRI, Value.text("Alice"),
+                EMAIL_IRI, Value.text("alice@example.com")));
+        ValidatableObject task = task(Map.of(
+                Fixtures.TITLE_IRI, Value.text("Write plan"),
+                Fixtures.ESTIMATED_HOURS_IRI, Value.decimal(new BigDecimal("40")),
+                Fixtures.ASSIGNED_TO_IRI, Value.ref(person.id())));
+
+        assertThat(PORT.validate(SCOPE, SCHEMA, person)).isEmpty();
+        assertThat(PORT.validate(SCOPE, SCHEMA, task)).isEmpty();
+    }
+
+    @Test
+    void outOfRangeEstimatedHoursProducesViolationOnItsPath() {
+        ValidatableObject task = task(Map.of(
+                Fixtures.TITLE_IRI, Value.text("Too big"),
+                Fixtures.ESTIMATED_HOURS_IRI, Value.decimal(new BigDecimal("5000"))));
+
+        List<ShapeViolation> violations = PORT.validate(SCOPE, SCHEMA, task);
+
+        assertThat(violations)
+                .isNotEmpty()
+                .extracting(ShapeViolation::propertyIri)
+                .containsOnly(Fixtures.ESTIMATED_HOURS_IRI);
+    }
+
+    @Test
+    void invalidPersonEmailProducesViolationOnItsPath() {
+        ValidatableObject person = person(Map.of(
+                NAME_IRI, Value.text("Alice"),
+                EMAIL_IRI, Value.text("not-an-email")));
+
+        List<ShapeViolation> violations = PORT.validate(SCOPE, SCHEMA, person);
+
+        assertThat(violations)
+                .isNotEmpty()
+                .extracting(ShapeViolation::propertyIri)
+                .containsOnly(EMAIL_IRI);
+    }
+
+    @Test
     void repeatedCallsWithEqualArgumentsReturnEqualLists() {
         List<ShapeViolation> first = PORT.validate(SCOPE, SCHEMA, INVALID_TASK);
         List<ShapeViolation> second = PORT.validate(SCOPE, SCHEMA, INVALID_TASK);
@@ -76,5 +123,9 @@ class ShaclValidationPortContractTest {
 
     private static ValidatableObject task(Map<String, Value> properties) {
         return new ValidatableObject(ObjectId.random(), Fixtures.TASK_IRI, properties);
+    }
+
+    private static ValidatableObject person(Map<String, Value> properties) {
+        return new ValidatableObject(ObjectId.random(), Fixtures.PERSON_IRI, properties);
     }
 }
