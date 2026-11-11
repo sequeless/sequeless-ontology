@@ -38,6 +38,11 @@
       <artifactId>kernel-identity</artifactId>
       <version>0.1.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.sequeless</groupId>
+      <artifactId>kernel-values</artifactId>
+      <version>0.1.0</version>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>

@@ -4,7 +4,13 @@
  * terms of.
  *
  * <p>Like every package in the ontology contracts, this package imports nothing outside the
- * JDK ({@code java.*}) except {@link org.sequeless.kernel.identity.Scope} from its parent package.
+ * JDK ({@code java.*}) except the kernel types it is expressed over: {@link
+ * org.sequeless.kernel.identity.Scope} from kernel-identity, and {@link
+ * org.sequeless.kernel.values.ObjectId} and {@link org.sequeless.kernel.values.Value} from
+ * kernel-values. The validation api ({@link org.sequeless.ontology.api.ShapeValidationPort},
+ * with {@link org.sequeless.ontology.api.ValidatableObject}, {@link
+ * org.sequeless.ontology.api.ShapeViolation} and {@link org.sequeless.ontology.api.ValidationSchema})
+ * is also in this package. Its implementation lives in ontology-jena-adapter.
  * It does not depend on any half of the ontology in the schema, behaviour or automation contract. {@link
  * org.sequeless.ontology.api.OntologyAdministration} is the port interface; {@link
  * org.sequeless.ontology.api.OntologyDocument}, {@link org.sequeless.ontology.api.OntologyFormat},
