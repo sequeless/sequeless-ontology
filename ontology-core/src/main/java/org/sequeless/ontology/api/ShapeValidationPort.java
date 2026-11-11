@@ -15,9 +15,10 @@ import org.sequeless.kernel.identity.Scope;
  *
  * <p>The result is a non-{@code null}, unmodifiable list. An empty list means the object is valid.
  *
- * <p>An implementation throws {@link IllegalArgumentException} when the type of {@code object} is not
- * declared by {@code schema}.
- * Each {@link ShapeViolation} names the property IRI it concerns, or {@code ""} for a node-level
+ * <p>An implementation throws {@link IllegalArgumentException} when the type of {@code object} is
+ * not declared by {@code schema}.
+ *
+ * <p>Each {@link ShapeViolation} names the property IRI it concerns, or {@code ""} for a node-level
  * violation.
  */
 public interface ShapeValidationPort {

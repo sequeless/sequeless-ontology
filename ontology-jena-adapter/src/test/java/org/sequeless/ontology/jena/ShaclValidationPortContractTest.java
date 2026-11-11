@@ -41,6 +41,7 @@ class ShaclValidationPortContractTest {
 
     /** {@code ex:name} and {@code ex:email} on {@code ex:Person}; the testkit fixtures carry no constants for them. */
     private static final String NAME_IRI = "https://sequeless.dev/ns/ref#name";
+
     private static final String EMAIL_IRI = "https://sequeless.dev/ns/ref#email";
 
     @Test
