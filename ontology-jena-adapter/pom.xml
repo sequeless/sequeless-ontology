@@ -130,6 +130,12 @@
       <artifactId>jena-arq</artifactId>
       <version>${jena.version}</version>
     </dependency>
+    <!-- Backs ShaclValidationPort. Its only compile dependency is jena-arq, already declared above. -->
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-shacl</artifactId>
+      <version>${jena.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.sequeless</groupId>
