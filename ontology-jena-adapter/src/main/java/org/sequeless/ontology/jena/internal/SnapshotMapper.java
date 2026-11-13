@@ -514,20 +514,13 @@ public final class SnapshotMapper {
     }
 
     /**
-     * Picks the most specific candidate {@code xsd:} range IRI among {@code candidateXsdIris},
-     * exactly the same domain/range-closure leakage {@link #mostSpecificNamed} handles for class
-     * hierarchies — verified empirically that an {@code owl} reasoner materialises {@code
-     * xsd:decimal} as an inferred supertype range alongside a property's own asserted {@code
-     * xsd:integer}, since {@code xsd:integer} is a restriction of {@code xsd:decimal} in XSD's own
-     * built-in numeric facet hierarchy. That hierarchy is not expressed as ontology {@code
-     * rdfs:subClassOf} triples this class's generic "leaf of chain" walk can traverse, so this is a
-     * small, explicit narrowing instead of a reuse of {@link #mostSpecificNamed}: among the {@link
-     * Datatype} values {@link Datatype#fromXsd} recognises, an integral type ({@link
-     * Datatype#INTEGER}/{@link Datatype#LONG}) is always more specific than a floating-point one
-     * ({@link Datatype#DECIMAL}/{@link Datatype#DOUBLE}) — the only subsumption relationship XSD's
-     * built-in numeric datatypes create between the values this SPI recognises. {@code
-     * candidateXsdIris} is expected pre-sorted (by IRI) for deterministic tie-breaking, matching
-     * {@link #dataPropertyMeta}'s one caller.
+     * Picks the most specific {@code xsd:} range IRI from {@code candidateXsdIris}, which {@link
+     * #dataPropertyXsdIri} passes in IRI-sorted order. A reasoner can infer {@code xsd:decimal} as
+     * a range next to a property's own asserted {@code xsd:integer}. The ontology has no {@code
+     * rdfs:subClassOf} triple for that pair, so {@link #mostSpecificNamed} cannot narrow them. This
+     * method therefore prefers an integral type ({@link Datatype#INTEGER}, {@link Datatype#LONG})
+     * over a floating-point one ({@link Datatype#DECIMAL}, {@link Datatype#DOUBLE}). Otherwise it
+     * takes the first recognised IRI, then the first candidate.
      *
      * @param candidateXsdIris every {@code xsd:} range IRI a property declares or a reasoner
      *     infers for it, in a fixed (IRI-sorted) order; must not be {@code null}
