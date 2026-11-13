@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/sequeless/sequeless-ontology/compare/ontology-jena-adapter-v0.1.1...ontology-jena-adapter-v0.1.2) (2026-11-13)
+
+
+### Documentation
+
+* **ontology:** correct the XSD range javadoc about its only caller ([41a1253](https://github.com/sequeless/sequeless-ontology/commit/41a1253212bfb63d995c6961f771dba940b796c7))
+* **ontology:** state the integral preference and the reasoner axiom ([28e0a2e](https://github.com/sequeless/sequeless-ontology/commit/28e0a2edb7bfe2a9146e7353bf195134bf231353))
+
 ## [0.1.1](https://github.com/sequeless/sequeless-ontology/compare/ontology-jena-adapter-v0.1.0...ontology-jena-adapter-v0.1.1) (2026-11-13)
 
 
