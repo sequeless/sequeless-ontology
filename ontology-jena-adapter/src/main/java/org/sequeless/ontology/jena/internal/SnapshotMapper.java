@@ -515,12 +515,14 @@ public final class SnapshotMapper {
 
     /**
      * Picks the most specific {@code xsd:} range IRI from {@code candidateXsdIris}, which {@link
-     * #dataPropertyXsdIri} passes in IRI-sorted order. A reasoner can infer {@code xsd:decimal} as
-     * a range next to a property's own asserted {@code xsd:integer}. The ontology has no {@code
-     * rdfs:subClassOf} triple for that pair, so {@link #mostSpecificNamed} cannot narrow them. This
-     * method therefore prefers an integral type ({@link Datatype#INTEGER}, {@link Datatype#LONG})
-     * over a floating-point one ({@link Datatype#DECIMAL}, {@link Datatype#DOUBLE}). Otherwise it
-     * takes the first recognised IRI, then the first candidate.
+     * #dataPropertyXsdIri} passes in IRI-sorted order. The owl reasoner can infer {@code
+     * xsd:decimal} as a range next to a property's own asserted {@code xsd:integer}, from an
+     * {@code xsd:integer rdfs:subClassOf xsd:decimal} axiom it adds. {@link #mostSpecificNamed}
+     * cannot narrow them, because it only accepts classes and drops every {@code xsd:} IRI as a
+     * builtin. This method therefore takes the first IRI that {@link Datatype#fromXsd} maps to
+     * {@link Datatype#INTEGER} or {@link Datatype#LONG}, so an integral type wins over {@link
+     * Datatype#DECIMAL}, {@link Datatype#DOUBLE} and any other recognised type. Otherwise it takes
+     * the first recognised IRI, then the first candidate.
      *
      * @param candidateXsdIris every {@code xsd:} range IRI a property declares or a reasoner
      *     infers for it, in a fixed (IRI-sorted) order; must not be {@code null}
