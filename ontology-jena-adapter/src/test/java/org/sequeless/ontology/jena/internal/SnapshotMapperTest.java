@@ -13,13 +13,16 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.junit.jupiter.api.Test;
+import org.sequeless.kernel.values.IntegerValue;
 import org.sequeless.ontology.automation.api.Action;
+import org.sequeless.ontology.automation.api.SetPropertyAction;
 import org.sequeless.ontology.automation.api.TransitionRef;
 import org.sequeless.ontology.automation.api.WebhookAction;
 import org.sequeless.ontology.behaviour.api.StateMachineDefinition;
 import org.sequeless.ontology.behaviour.api.Transition;
 import org.sequeless.ontology.jena.ReasonerSetting;
 import org.sequeless.ontology.schema.api.AttributeDefinition;
+import org.sequeless.ontology.schema.api.Datatype;
 import org.sequeless.ontology.schema.api.PropertyDefinition;
 import org.sequeless.ontology.schema.api.RelationshipDefinition;
 import org.sequeless.ontology.schema.api.TypeDefinition;
@@ -224,6 +227,55 @@ class SnapshotMapperTest {
         Transition first = machine.transitions().get(0);
         assertThat(first.guard()).contains("plain");
         assertThat(result.transitionActions()).isEmpty();
+    }
+
+    /**
+     * A data property with two {@code rdfs:range} IRIs, {@code xsd:decimal} and {@code xsd:integer}.
+     * The snapshot resolves its datatype through {@code mostSpecificXsdIri}, which prefers the
+     * integral type, so the property is {@link Datatype#INTEGER}. A {@code sq:SetProperty} {@code
+     * sq:value} on it must coerce to that same datatype: the sorted range IRIs put {@code #decimal}
+     * first, so a coercion that took the first sorted range would yield a decimal value instead.
+     * This pins that the coercion and the snapshot agree on a property with several ranges.
+     */
+    @Test
+    void multiRangePropertyCoercesWithMostSpecificRange() {
+        String turtle = """
+            @prefix sq:   <https://sequeless.dev/ns/meta#> .
+            @prefix owl:  <http://www.w3.org/2002/07/owl#> .
+            @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+            @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+            @prefix ex:   <https://sequeless.dev/ns/ref#> .
+
+            <https://sequeless.dev/ns/ref> a owl:Ontology ; owl:imports <https://sequeless.dev/ns/meta> .
+
+            ex:Project a owl:Class .
+            ex:amount a owl:DatatypeProperty ; rdfs:domain ex:Project ; rdfs:range xsd:decimal, xsd:integer .
+            ex:Draft  a sq:State ; sq:label "Draft"  ; sq:displayOrder "1"^^xsd:integer .
+            ex:Active a sq:State ; sq:label "Active" ; sq:displayOrder "2"^^xsd:integer .
+
+            ex:Lifecycle
+                a sq:StateMachine ;
+                sq:appliesTo ex:Project ;
+                sq:initialState ex:Draft ;
+                sq:state ex:Draft, ex:Active ;
+                sq:transition
+                    [ a sq:Transition ; sq:name "activate" ; sq:from ex:Draft ; sq:to ex:Active ;
+                      sq:trigger sq:UserAction ;
+                      sq:action ( [ a sq:SetProperty ; sq:property ex:amount ; sq:value "5" ] ) ] .
+            """;
+        MappingResult result = SnapshotMapper.map(buildModel(turtle, ReasonerSetting.NONE));
+
+        assertThat(result.issues()).isEmpty();
+        String amountIri = Fixtures.REFERENCE_ONTOLOGY_IRI + "#amount";
+        assertThat(attribute(typeNamed(result, Fixtures.PROJECT_IRI), amountIri).datatype())
+                .isEqualTo(Datatype.INTEGER);
+
+        List<Action> actions = result.transitionActions().values().stream()
+                .flatMap(List::stream)
+                .toList();
+        assertThat(actions).hasSize(1);
+        assertThat(actions.get(0)).isInstanceOf(SetPropertyAction.class);
+        assertThat(((SetPropertyAction) actions.get(0)).value()).contains(new IntegerValue(5));
     }
 
     private static MappingResult mapReferenceOntology(ReasonerSetting reasoner) {
