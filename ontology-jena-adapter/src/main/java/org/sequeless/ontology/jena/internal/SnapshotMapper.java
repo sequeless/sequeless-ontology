@@ -553,8 +553,9 @@ public final class SnapshotMapper {
     /**
      * The {@code xsd:} range IRI the snapshot resolves {@code property}'s datatype from: its URI
      * ranges, de-duplicated and IRI-sorted, narrowed by {@link #mostSpecificXsdIri}. {@link
-     * #dataPropertyMeta} and the comparison check in {@link #isNonNumericProperty} both call this,
-     * so they cannot disagree about a property with several ranges.
+     * #dataPropertyMeta}, the comparison check in {@link #isNonNumericProperty}, and the coercion
+     * lookup {@link #dataDatatypeOf} all call this, so they cannot disagree about a property with
+     * several ranges.
      */
     private static Optional<String> dataPropertyXsdIri(OntDataProperty property) {
         List<String> candidateXsdIris = property.ranges()
@@ -1015,21 +1016,16 @@ public final class SnapshotMapper {
     /**
      * The {@link Datatype} {@code propertyIri} resolves to as a data property, or empty if it is not
      * a data property with a recognised XSD range. This is the lookup {@link
-     * #resolveValueForProperty} coerces against. It takes the first sorted range IRI rather than
-     * {@link #dataPropertyXsdIri}'s most specific one, so for a property with several ranges it can
-     * differ from the snapshot's datatype; the comparison check does not use it.
+     * #resolveValueForProperty} coerces against. It uses the same most-specific range selection as
+     * {@link #dataPropertyXsdIri}, which the snapshot's datatype is resolved with, so the coerced
+     * {@code sq:value} and the snapshot agree by construction, including for a property with several
+     * ranges.
      */
     private static Optional<Datatype> dataDatatypeOf(String propertyIri, OntModel model) {
         OntDataProperty dataProperty = model.getDataProperty(propertyIri);
         return dataProperty == null
                 ? Optional.empty()
-                : dataProperty
-                        .ranges()
-                        .filter(Resource::isURIResource)
-                        .map(Resource::getURI)
-                        .sorted()
-                        .findFirst()
-                        .flatMap(Datatype::fromXsd);
+                : dataPropertyXsdIri(dataProperty).flatMap(Datatype::fromXsd);
     }
 
     /**
