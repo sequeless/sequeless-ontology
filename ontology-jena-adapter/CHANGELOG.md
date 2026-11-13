@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/sequeless/sequeless-ontology/compare/ontology-jena-adapter-v0.1.0...ontology-jena-adapter-v0.1.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* **ontology:** coerce sq:value with the most specific range, as the snapshot does ([10f5a57](https://github.com/sequeless/sequeless-ontology/commit/10f5a576329b2db951aa845ef68ac20794c57368))
+
 ## 0.1.0 (2026-11-11)
 
 
