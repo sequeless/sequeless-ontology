@@ -21,9 +21,9 @@
   <properties>
     <maven.compiler.release>25</maven.compiler.release>
     <sequeless.github.repository>sequeless-ontology</sequeless.github.repository>
-    <flatten.version>1.6.0</flatten.version>
-    <junit-jupiter.version>5.11.4</junit-jupiter.version>
-    <assertj-core.version>3.26.3</assertj-core.version>
+    <flatten.version>1.9.0</flatten.version>
+    <junit-jupiter.version>5.14.4</junit-jupiter.version>
+    <assertj-core.version>3.27.7</assertj-core.version>
 
     <!-- JaCoCo line-coverage check: off until the module opts in (CONTRIBUTING.md, Coverage). -->
     <jacoco.check.skip>true</jacoco.check.skip>
@@ -35,12 +35,12 @@
     <dependency>
       <groupId>org.sequeless</groupId>
       <artifactId>kernel-identity</artifactId>
-      <version>0.1.0</version>
+      <version>0.1.1</version>
     </dependency>
     <dependency>
       <groupId>org.sequeless</groupId>
       <artifactId>kernel-values</artifactId>
-      <version>0.1.0</version>
+      <version>0.1.1</version>
     </dependency>
 
     <dependency>
