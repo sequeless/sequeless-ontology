@@ -22,10 +22,10 @@
   <properties>
     <maven.compiler.release>25</maven.compiler.release>
     <sequeless.github.repository>sequeless-ontology</sequeless.github.repository>
-    <flatten.version>1.6.0</flatten.version>
-    <junit-jupiter.version>5.11.4</junit-jupiter.version>
-    <assertj-core.version>3.26.3</assertj-core.version>
-    <mockito-core.version>5.14.2</mockito-core.version>
+    <flatten.version>1.9.0</flatten.version>
+    <junit-jupiter.version>5.14.4</junit-jupiter.version>
+    <assertj-core.version>3.27.7</assertj-core.version>
+    <mockito-core.version>5.24.0</mockito-core.version>
 
     <!-- Frozen and never published from this repo: excluded from release-please and deploy (spec 11). -->
     <maven.deploy.skip>true</maven.deploy.skip>
