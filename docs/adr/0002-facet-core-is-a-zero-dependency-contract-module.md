@@ -1,6 +1,6 @@
 # 0002. facet-core is a zero-dependency contract module
 
-- Status: accepted
+- Status: superseded by 0005
 - Date: 2026-09-03
 
 ## Context

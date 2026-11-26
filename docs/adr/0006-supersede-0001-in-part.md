@@ -1,6 +1,6 @@
 # 0006. Supersede two clauses of 0001: versions per module and a thin ontology-core
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-11-10
 - Supersedes: 0001 (in part)
 

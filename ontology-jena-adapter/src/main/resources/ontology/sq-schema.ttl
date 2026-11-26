@@ -5,8 +5,9 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 #
-# The schema half of the canonical Turtle declaration of the sq: vocabulary (see
-# docs/architecture/sq-vocabulary.md, T1). The behaviour half is sq-behaviour.ttl in this directory.
+# The schema half of the canonical Turtle declaration of the sq: vocabulary (the vocabulary
+# reference document is not in this repository; see T1 there). The behaviour half is
+# sq-behaviour.ttl in this directory.
 # Any ontology document that uses sq: terms imports the union of both files via
 # owl:imports <https://sequeless.dev/ns/meta>; ImportResolver merges them under that IRI.
 #
@@ -65,8 +66,8 @@ sq:abstract
     rdfs:range xsd:boolean .
 
 #
-# Derived properties (sq:Rollup / sq:Plugin) — Phase 4 (docs/architecture/sq-vocabulary.md,
-# "Terms in use (phase 4)"). Every term below is deliberately declared owl:AnnotationProperty,
+# Derived properties (sq:Rollup / sq:Plugin) — Phase 4 (vocabulary reference not in this
+# repository, "Terms in use (phase 4)"). Every term below is deliberately declared owl:AnnotationProperty,
 # never owl:ObjectProperty or owl:DatatypeProperty: SnapshotMapper's property attribution walks
 # OntDataProperty/OntObjectProperty only, so an annotation property never surfaces as a property
 # of a type — these terms describe a derivation rule attached to a property, not a property of

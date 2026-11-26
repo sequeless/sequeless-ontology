@@ -39,8 +39,7 @@ non-obvious decision; ADRs are immutable — supersede with a new one rather tha
 
 Spotless (format), Enforcer (dependency hygiene, including the "no Spring" ban —
 "sequeless-ontology must stay transport-agnostic — no Spring dependency"), and ArchUnit
-(boundaries) all run in `make verify`. CodeQL (static analysis) and gitleaks (secret scanning)
-run in CI.
+(boundaries) all run in `make verify`. CodeQL (static analysis) runs in CI.
 
 ## Coverage (JaCoCo) convention
 

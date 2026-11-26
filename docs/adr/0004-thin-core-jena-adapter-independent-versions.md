@@ -1,6 +1,6 @@
 # 0004. A thin ontology-core, a Jena adapter, and a version per module
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-10-14
 - Amends: 0001
 
