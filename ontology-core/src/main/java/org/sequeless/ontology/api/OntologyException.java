@@ -1,6 +1,7 @@
 package org.sequeless.ontology.api;
 
 import java.util.Objects;
+import org.sequeless.ontology.schema.spi.NoConsistentOntologyException;
 
 /**
  * Thrown by the three read ports ({@code SchemaSource}, {@code BehaviourSource} and {@code
@@ -20,8 +21,11 @@ import java.util.Objects;
  * AccessDecision} is SPI-level because it is a port return type. {@code
  * AuthorizationPort} by contrast never throws — denial is a return value a core use case escalates
  * into {@code AuthorizationException}, which is why that exception belongs to core instead.
+ *
+ * <p>It extends {@link NoConsistentOntologyException}, the typed failure of the Schema read port, so
+ * a caller that catches the contract's exception also catches this one.
  */
-public final class OntologyException extends RuntimeException {
+public final class OntologyException extends NoConsistentOntologyException {
 
     private final OntologyReport report;
 

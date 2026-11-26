@@ -16,6 +16,7 @@ import org.sequeless.ontology.api.OntologyReport;
 import org.sequeless.ontology.jena.internal.ImportResolver;
 import org.sequeless.ontology.schema.api.OntologyVersion;
 import org.sequeless.ontology.schema.api.Schema;
+import org.sequeless.ontology.schema.spi.NoConsistentOntologyException;
 import org.sequeless.ontology.testfixtures.Fixtures;
 
 /**
@@ -38,6 +39,16 @@ class JenaOntologyPortTest {
                 Fixtures.inconsistentOntology(), ReasonerSetting.OWL, () -> Set.of("workload"));
 
         assertThatThrownBy(() -> Halves.of(port)).isInstanceOf(OntologyException.class);
+    }
+
+    @Test
+    void schemaOfAnInconsistentDocumentThrowsTheTypedPortFailure() {
+        JenaOntologyPort port = JenaOntologyPort.fromDocument(
+                Fixtures.inconsistentOntology(), ReasonerSetting.OWL, () -> Set.of("workload"));
+
+        assertThatThrownBy(() -> port.schema(TenantId.DEFAULT))
+                .isInstanceOf(NoConsistentOntologyException.class)
+                .isInstanceOf(OntologyException.class);
     }
 
     @Test
