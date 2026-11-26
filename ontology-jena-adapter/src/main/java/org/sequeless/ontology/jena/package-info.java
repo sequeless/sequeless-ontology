@@ -6,6 +6,6 @@
  * validation port over the live ontology, {@code ReasonerSetting}, and {@code JenaOntologySettings}.
  *
  * <p>The compiler and the Jena internals are in {@code org.sequeless.ontology.jena.internal}. That
- * package is not part of the public API (ADR 0001).
+ * package is not part of the public API.
  */
 package org.sequeless.ontology.jena;

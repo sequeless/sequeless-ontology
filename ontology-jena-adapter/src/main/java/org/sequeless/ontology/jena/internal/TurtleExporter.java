@@ -38,7 +38,7 @@ import org.sequeless.ontology.jena.JenaOntologyPort;
  * byte strings — only the *mapped* halves, {@link org.sequeless.ontology.schema.api.Schema} and its
  * siblings, which never observe blank node identity, are compared for equality anywhere.
  *
- * <p>Public, used by {@link JenaOntologyPort}, and not part of the public API (ADR 0001).
+ * <p>Public, used by {@link JenaOntologyPort}, and not part of the public API.
  */
 public final class TurtleExporter {
 

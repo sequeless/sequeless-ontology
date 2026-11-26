@@ -58,7 +58,7 @@ import org.sequeless.ontology.jena.ReasonerSetting;
  * uses the {@code sq:} vocabulary at all — which would otherwise be every ontology this adapter
  * will ever see in practice.
  *
- * <p>Public, used by {@link JenaOntologyPort}, and not part of the public API (ADR 0001). The port
+ * <p>Public, used by {@link JenaOntologyPort}, and not part of the public API. The port
  * folds its result into the single merged {@link OntologyReport} that also carries {@link
  * SnapshotMapper}'s warnings and the
  * reserved-{@code sq:}-term check (see {@code JenaOntologyPort}'s javadoc for the merge).

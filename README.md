@@ -45,6 +45,8 @@ Each module has a `BoundaryRulesTest` class. It uses ArchUnit (a library for arc
 
 Start with `OntologyAdministration`. It has the operations to reload, export, and import ontology documents.
 
+The API and SPI of each module are described in [docs/contracts.md](docs/contracts.md).
+
 `ontology-jena-adapter` contains `JenaOntologyPort`, the reference adapter class. It implements `SchemaSource`, `BehaviourSource`, `AutomationSource`, and `OntologyAdministration`. `ShaclValidationPort` validates objects with SHACL (Shapes Constraint Language). It uses the SHACL shapes (validation constraints) in the loaded ontology.
 
 ## Commands
@@ -77,8 +79,8 @@ To add a decision:
 
 The `sq:` vocabulary is the set of terms that ontology documents use.
 
-- `docs/adr/`: architecture decision records. Each record explains one decision. The template is `docs/adr/_template.md`.
-- `docs/extraction/`: extraction specifications. They describe how code moved between Sequeless repositories.
+- `docs/adr/`: the decision record process. The template is `docs/adr/_template.md`. Run `make new-adr` to add a record.
+- `docs/contracts.md`: the API and SPI of each module, with Mermaid diagrams (text-based diagrams that GitHub draws).
 - `ontology-jena-adapter/src/main/resources/ontology/`: Contains `sq-schema.ttl` and `sq-behaviour.ttl`.
 - `ontology-jena-adapter/src/main/resources/ontology/`: These Turtle files define the `sq:` vocabulary.
 - `ontology-testfixtures/src/main/resources/ontology/`: Turtle test files.
@@ -97,7 +99,7 @@ Continuous integration (CI) runs on pushes and pull requests to `main`. It calls
 
 ## Notes
 
-The facet-core module moved to [`sequeless-query`](https://github.com/sequeless/sequeless-query). Read [ADR 0005](docs/adr/0005-facet-core-moves-to-sequeless-query.md) for the details.
+The facet-core module moved to [`sequeless-query`](https://github.com/sequeless/sequeless-query). The decision records and extraction specifications for that move were removed. Git history keeps them.
 
 ## License
 
