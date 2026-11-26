@@ -1,7 +1,8 @@
 # 0005. facet-core moves to sequeless-query
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-10-14
+- Accepted: 2026-11-26, by spec 14 (the sequeless-query side) and spec 16 (this repo's deletion)
 - Supersedes: 0002
 
 ADR 0002 put `facet-core` here as neutral ground, so that sequeless-ontology and sequeless-filter

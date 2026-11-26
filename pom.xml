@@ -27,8 +27,6 @@
     <module>automation-contract</module>
     <module>ontology-jena-adapter</module>
     <module>ontology-testfixtures</module>
-    <module>facet-core</module>
-    <module>facet-core-testfixtures</module>
   </modules>
 
   <!-- Deploy target for the reusable release workflow (release-please, sequeless-build). -->
