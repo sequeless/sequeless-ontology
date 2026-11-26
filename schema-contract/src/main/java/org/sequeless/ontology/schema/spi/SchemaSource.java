@@ -11,8 +11,8 @@ import org.sequeless.ontology.schema.api.Schema;
  *   <li>A {@code null} tenant throws {@link NullPointerException}.
  *   <li>Reads are deterministic and have no side effects between activations.
  *   <li>One call returns the half of exactly one Ontology version.
- *   <li>The port throws an unchecked exception when no consistent Ontology is active. The adapter
- *       throws {@code org.sequeless.ontology.api.OntologyException}.
+ *   <li>The port throws {@link NoConsistentOntologyException} when no consistent Ontology is
+ *       active. An adapter may throw a subtype of it.
  * </ul>
  */
 public interface SchemaSource {
@@ -24,6 +24,7 @@ public interface SchemaSource {
      * @param tenant the tenant whose active ontology is read; must not be {@code null}
      * @return the Schema of exactly one Ontology version
      * @throws NullPointerException if {@code tenant} is {@code null}
+     * @throws NoConsistentOntologyException if no consistent Ontology is active for {@code tenant}
      */
     Schema schema(TenantId tenant);
 }
