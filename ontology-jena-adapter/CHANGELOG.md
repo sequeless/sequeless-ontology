@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.0](https://github.com/sequeless/sequeless-ontology/compare/ontology-jena-adapter-v0.1.2...ontology-jena-adapter-v0.2.0) (2026-11-26)
+
+
+### Features
+
+* **schema:** NoConsistentOntologyException is the typed port failure (Refs [#21](https://github.com/sequeless/sequeless-ontology/issues/21)) ([0ba11cf](https://github.com/sequeless/sequeless-ontology/commit/0ba11cf901fa3cecc1d9a8185ded39745cb1bd0a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+    * org.sequeless:ontology-core bumped to 0.2.0,
+    * org.sequeless:schema-contract bumped to 0.2.0,
+    * org.sequeless:automation-contract bumped to 0.1.1,
+    * org.sequeless:behaviour-contract bumped to 0.1.1,
+    * org.sequeless:ontology-testfixtures bumped to 0.1.1
+
 ## [0.1.2](https://github.com/sequeless/sequeless-ontology/compare/ontology-jena-adapter-v0.1.1...ontology-jena-adapter-v0.1.2) (2026-11-13)
 
 

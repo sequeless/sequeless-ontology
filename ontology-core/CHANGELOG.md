@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/sequeless/sequeless-ontology/compare/ontology-core-v0.1.0...ontology-core-v0.2.0) (2026-11-26)
+
+
+### Features
+
+* **schema:** NoConsistentOntologyException is the typed port failure (Refs [#21](https://github.com/sequeless/sequeless-ontology/issues/21)) ([0ba11cf](https://github.com/sequeless/sequeless-ontology/commit/0ba11cf901fa3cecc1d9a8185ded39745cb1bd0a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+    * org.sequeless:schema-contract bumped to 0.2.0
+
 ## 0.1.0 (2026-11-11)
 
 
