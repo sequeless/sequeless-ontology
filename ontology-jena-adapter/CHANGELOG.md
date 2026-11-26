@@ -1,5 +1,10 @@
 # Changelog
 
+* The following workspace dependencies were updated
+    * org.sequeless:automation-contract bumped to 0.2.0,
+    * org.sequeless:behaviour-contract bumped to 0.2.0,
+    * org.sequeless:ontology-testfixtures bumped to 0.2.0
+
 ## [0.2.0](https://github.com/sequeless/sequeless-ontology/compare/ontology-jena-adapter-v0.1.2...ontology-jena-adapter-v0.2.0) (2026-11-26)
 
 
