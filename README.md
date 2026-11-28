@@ -23,6 +23,7 @@ Requires JDK 25.
 | --- | --- | --- |
 | [`ontology-core`](ontology-core) | `org.sequeless:ontology-core` | The ontology domain core: published `api`/`spi` contracts and internal supporting types. Scaffolded; no domain types yet. |
 | [`ontology-jena-adapter`](ontology-jena-adapter) | `org.sequeless:ontology-jena-adapter` | Reference adapter translating the ontology domain model to and from OWL, depending only on `ontology-core`'s published `api`. Scaffolded; no adapter types yet. |
+| [`ontology-postgres-adapter`](ontology-postgres-adapter) | `org.sequeless:ontology-postgres-adapter` | PostgreSQL `OntologyDocumentStore` over `sq_ontology_document`, on plain JDBC. Ships no migration; its schema comes from `store-postgres-jsonb-adapter`. |
 
 The repository root is a `pom`-packaged, parent-less aggregator (`org.sequeless:sequeless-ontology`)
 that ships no code. It holds no dependency management, and its only build plugin sorts the root
