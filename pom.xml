@@ -26,6 +26,7 @@
     <module>behaviour-contract</module>
     <module>automation-contract</module>
     <module>ontology-jena-adapter</module>
+    <module>ontology-postgres-adapter</module>
     <module>ontology-testfixtures</module>
   </modules>
 
