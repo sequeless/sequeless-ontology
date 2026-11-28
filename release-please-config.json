@@ -40,6 +40,11 @@
       "component": "ontology-testfixtures",
       "initial-version": "0.1.0",
       "skip-snapshot": true
+    },
+    "ontology-postgres-adapter": {
+      "component": "ontology-postgres-adapter",
+      "initial-version": "0.1.0",
+      "skip-snapshot": true
     }
   }
 }
