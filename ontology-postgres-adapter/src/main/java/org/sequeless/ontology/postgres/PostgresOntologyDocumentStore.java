@@ -23,6 +23,9 @@ import org.sequeless.ontology.spi.StoredOntologyDocument;
  * <p>The table is created by the store adapter's migrations ({@code store-postgres-jsonb-adapter}, V1),
  * which this module does not ship. Plain JDBC: each call takes a connection from the {@link DataSource},
  * and {@link #activate} runs in one transaction on that connection.
+ *
+ * <p>Unlike a Spring {@code TransactionTemplate}, this store does not join an ambient transaction. Each
+ * call commits or rolls back on its own connection, so it is not undone by an outer transaction's rollback.
  */
 public final class PostgresOntologyDocumentStore implements OntologyDocumentStore {
 
@@ -127,12 +130,12 @@ public final class PostgresOntologyDocumentStore implements OntologyDocumentStor
     }
 
     /**
-     * Runs {@code work} on a fresh connection in one transaction: commits on success, rolls back on any
-     * failure, and restores the connection's auto-commit mode before it is closed.
+     * Runs {@code work} on a fresh connection in one transaction: commits on success and rolls back on any
+     * failure. Auto-commit is not restored before close: the connection goes back to its pool with auto-commit
+     * off, and the pool resets it. Restoring it after a failed rollback would make the driver commit partial work.
      */
     private <T> T inTransaction(TransactionalWork<T> work) {
         try (Connection connection = dataSource.getConnection()) {
-            boolean autoCommit = connection.getAutoCommit();
             connection.setAutoCommit(false);
             try {
                 T result = work.apply(connection);
@@ -141,8 +144,6 @@ public final class PostgresOntologyDocumentStore implements OntologyDocumentStor
             } catch (SQLException | RuntimeException | Error failure) {
                 rollbackQuietly(connection, failure);
                 throw failure;
-            } finally {
-                connection.setAutoCommit(autoCommit);
             }
         } catch (SQLException e) {
             throw new IllegalStateException("could not activate the ontology document", e);
